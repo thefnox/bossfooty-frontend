@@ -1,48 +1,57 @@
 {
-  "boilerplate.components.Footer.author.message":
-    "Mit Liebe gemacht von {author}.",
-  "boilerplate.components.Footer.license.message":
-    "Dieses Projekt wird unter der MIT-Lizenz veröffentlicht.",
-  "boilerplate.components.Header.features": "",
-  "boilerplate.components.Header.home": "",
-  "boilerplate.containers.FeaturePage.css.header": "",
-  "boilerplate.containers.FeaturePage.css.message":
-    "Die nächste Generation von CSS",
-  "boilerplate.containers.FeaturePage.feedback.header": "Sofortiges Feedback",
-  "boilerplate.containers.FeaturePage.feedback.message":
-    "Genießen Sie die beste Entwicklungserfahrung und programmieren Sie Ihre App so schnell wie noch nie! Ihre Änderungen an dem CSS und JavaScript sind sofort reflektiert, ohne die Seite aktualisieren zu müssen. So bleibt der Anwendungszustand bestehen, auch wenn Sie etwas in dem darunter liegenden Code aktualisieren!",
-  "boilerplate.containers.FeaturePage.header": "",
-  "boilerplate.containers.FeaturePage.internationalization.header":
-    "Komplette i18n Standard-Internationalisierung und Pluralisierung",
-  "boilerplate.containers.FeaturePage.internationalization.message":
-    "Das Internet ist global. Mehrsprachige- und Pluralisierungsunterstützung ist entscheidend für große Web-Anwendungen.",
-  "boilerplate.containers.FeaturePage.javascript.header":
-    "Das Internet ist global. Mehrsprachige- und Pluralisierungsunterstützung ist entscheidend für große Web-Anwendungen.",
-  "boilerplate.containers.FeaturePage.javascript.message":
-    "Benutzen Sie ES6 template strings, object destructuring, arrow functions, JSX syntax und mehr, heute.",
-  "boilerplate.containers.FeaturePage.network.header": "",
-  "boilerplate.containers.FeaturePage.network.message":
-    "The next frontier in performant web apps: availability without a\n      network connection from the instant your users load the app.",
-  "boilerplate.containers.FeaturePage.routing.header": "Standard Routing",
-  "boilerplate.containers.FeaturePage.routing.message":
-    "Schreiben Sie CSS, das am selben Ort wie ihre Komponenten ist. Deterministisch generierte, einzigartige Klassennamen halten die Spezifität niedrig während styling Konflikte vermieden werden. Senden Sie nur das CSS an ihre Benutzer welches dann wirklich sichtbar ist für die schnellste Performance!",
-  "boilerplate.containers.FeaturePage.scaffolding.header":
-    "Schnelles Scaffolding",
-  "boilerplate.containers.FeaturePage.scaffolding.message":
-    "Automatisieren Sie die Kreation von Komponenten, Containern, Routen, Selektoren und Sagas – und ihre Tests – direkt von dem Terminal!",
-  "boilerplate.containers.FeaturePage.state_management.header":
-    "Berechenbare Stateverwaltung",
-  "boilerplate.containers.FeaturePage.state_management.message":
-    "Unidirectional data flow erlaubt uns alle Änderungen ihrer Applikation zu loggen und time travel debugging einzusetzen.",
-  "boilerplate.containers.HomePage.start_project.header":
-    "Beginnen Sie Ihr nächstes React Projekt in Sekunden",
-  "boilerplate.containers.HomePage.start_project.message":
-    "Ein skalierendes, offline-first Fundament mit der besten DX und einem Fokus auf Performance und bewährte Methoden",
-  "boilerplate.containers.HomePage.tryme.atPrefix": "",
-  "boilerplate.containers.HomePage.tryme.header": "Probiere mich!",
-  "boilerplate.containers.HomePage.tryme.message":
-    "Zeige die Github Repositories von",
-  "boilerplate.containers.LocaleToggle.de": "",
-  "boilerplate.containers.LocaleToggle.en": "",
-  "boilerplate.containers.NotFoundPage.header": "Seite nicht gefunden."
+  "app.components.ForgotPasswordForm.header": "",
+  "app.components.LoginForm.header": "",
+  "app.components.RegisterForm.header": "",
+  "app.components.ResetPasswordForm.header": "",
+  "bossfooty.components.Footer.author.message": "",
+  "bossfooty.components.Footer.license.message": "",
+  "bossfooty.components.Header.features": "",
+  "bossfooty.components.Header.home": "",
+  "bossfooty.containers.AuthPage.createAccountLink": "",
+  "bossfooty.containers.AuthPage.forgotPasswordLink": "",
+  "bossfooty.containers.AuthPage.header": "",
+  "bossfooty.containers.AuthPage.loginLink": "",
+  "bossfooty.containers.ConnectPage.header": "",
+  "bossfooty.containers.FeaturePage.css.header": "",
+  "bossfooty.containers.FeaturePage.css.message": "",
+  "bossfooty.containers.FeaturePage.feedback.header": "",
+  "bossfooty.containers.FeaturePage.feedback.message": "",
+  "bossfooty.containers.FeaturePage.header": "",
+  "bossfooty.containers.FeaturePage.internationalization.header": "",
+  "bossfooty.containers.FeaturePage.internationalization.message": "",
+  "bossfooty.containers.FeaturePage.javascript.header": "",
+  "bossfooty.containers.FeaturePage.javascript.message": "",
+  "bossfooty.containers.FeaturePage.network.header": "",
+  "bossfooty.containers.FeaturePage.network.message": "",
+  "bossfooty.containers.FeaturePage.routing.header": "",
+  "bossfooty.containers.FeaturePage.routing.message": "",
+  "bossfooty.containers.FeaturePage.scaffolding.header": "",
+  "bossfooty.containers.FeaturePage.scaffolding.message": "",
+  "bossfooty.containers.FeaturePage.state_management.header": "",
+  "bossfooty.containers.FeaturePage.state_management.message": "",
+  "bossfooty.containers.HomePage.start_project.header": "",
+  "bossfooty.containers.HomePage.start_project.message": "",
+  "bossfooty.containers.HomePage.tryme.atPrefix": "",
+  "bossfooty.containers.HomePage.tryme.header": "",
+  "bossfooty.containers.HomePage.tryme.message": "",
+  "bossfooty.containers.LocaleToggle.de": "",
+  "bossfooty.containers.LocaleToggle.en": "",
+  "bossfooty.containers.NotFoundPage.header": "",
+  "bossfooty.containers.PaymentPage.css.header": "",
+  "bossfooty.containers.PaymentPage.css.message": "",
+  "bossfooty.containers.PaymentPage.feedback.header": "",
+  "bossfooty.containers.PaymentPage.feedback.message": "",
+  "bossfooty.containers.PaymentPage.header": "",
+  "bossfooty.containers.PaymentPage.internationalization.header": "",
+  "bossfooty.containers.PaymentPage.internationalization.message": "",
+  "bossfooty.containers.PaymentPage.javascript.header": "",
+  "bossfooty.containers.PaymentPage.javascript.message": "",
+  "bossfooty.containers.PaymentPage.network.header": "",
+  "bossfooty.containers.PaymentPage.network.message": "",
+  "bossfooty.containers.PaymentPage.routing.header": "",
+  "bossfooty.containers.PaymentPage.routing.message": "",
+  "bossfooty.containers.PaymentPage.scaffolding.header": "",
+  "bossfooty.containers.PaymentPage.scaffolding.message": "",
+  "bossfooty.containers.PaymentPage.state_management.header": "",
+  "bossfooty.containers.PaymentPage.state_management.message": ""
 }

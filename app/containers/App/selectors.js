@@ -22,12 +22,28 @@ const makeSelectRepos = () =>
     globalState.getIn(['userData', 'repositories']),
   );
 
+const makeSelectIsAuthed = () => 
+  createSelector(selectGlobal, globalState => globalState.get('authed'));
+
+const makeSelectIsSubbed = () => 
+  createSelector(selectGlobal, globalState => globalState.get('subbed'));
+
+const makeSelectIsSetup = () => 
+  createSelector(selectGlobal, globalState => globalState.get('configured'));
+
+const makeSelectUserData = () => 
+  createSelector(selectGlobal, globalState => globalState.get('userData'));
+
 const makeSelectLocation = () =>
   createSelector(selectRoute, routeState => routeState.get('location').toJS());
 
 export {
   selectGlobal,
+  makeSelectIsAuthed,
+  makeSelectIsSubbed,
+  makeSelectIsSetup,
   makeSelectCurrentUser,
+  makeSelectUserData,
   makeSelectLoading,
   makeSelectError,
   makeSelectRepos,

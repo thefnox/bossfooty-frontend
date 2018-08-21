@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import auth from './auth';
 
 /**
  * Parses the JSON returned by a network request
@@ -32,6 +33,18 @@ function checkStatus(response) {
 }
 
 /**
+ * Format query params
+ *
+ * @param params
+ * @returns {string}
+ */
+function formatQueryParams(params) {
+  return Object.keys(params)
+    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+    .join('&');
+}
+
+/**
  * Requests a URL, returning a promise
  *
  * @param  {string} url       The URL we want to request
@@ -39,7 +52,40 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
+export default function request(url, options = {}, stringify = true) {
+  // Set headers
+  if (stringify) {
+
+    options.headers = Object.assign(
+      {
+        'Content-Type': 'application/json',
+      },
+      options.headers,
+      {}
+    );
+  }
+
+  const token = auth.getToken();
+
+  if (token) {
+    options.headers = Object.assign(
+      {
+        Authorization: `Bearer ${token}`,
+      },
+      options.headers
+    );
+  }
+
+  if (options && options.params) {
+    const params = formatQueryParams(options.params);
+    url = `${url}?${params}`;
+  }
+
+  // Stringify body object
+  if (options && options.body && stringify) {
+    options.body = JSON.stringify(options.body);
+  }
+
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);

@@ -16,7 +16,7 @@ describe('<NotFound />', () => {
       renderedComponent.contains(
         <H1>
           <FormattedMessage
-            id="boilerplate.containers.NotFoundPage.header"
+            id="bossfooty.containers.NotFoundPage.header"
             defaultMessage="Page not found."
           />
         </H1>,

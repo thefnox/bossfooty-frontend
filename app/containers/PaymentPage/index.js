@@ -4,35 +4,123 @@
  * Allows you to pay for the subscription
  */
 import React from 'react';
+import PropTypes from 'prop-types';
+import { fromJS } from 'immutable';
 import { Helmet } from 'react-helmet';
-import stripe from 'stripe-client';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { loadPaymentInfo, loadUserStatus } from 'containers/App/actions';
+import { makeSelectUserData, makeSelectIsSubbed } from 'containers/App/selectors';
+import { makeSelectKey, makeSelectError, makeSelectStripe } from './selectors';
+import { StripeProvider } from 'react-stripe-elements';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import SubscribeCheckout from 'components/SubscribeCheckout'
 import { FormattedMessage } from 'react-intl';
-
+import { API_HOSTNAME } from 'utils/constants'
+import reducer from './reducer';
+import request from 'utils/request';
+import saga from './saga';
 import H1 from 'components/H1';
 import messages from './messages';
-export default class PaymentPage extends React.Component {
-  // eslint-disable-line react/prefer-stateless-function
-  // Since state and props are static,
-  // there's no need to re-render this component
-  shouldComponentUpdate() {
-    return false;
+class PaymentPage extends React.PureComponent {
+
+  state = fromJS({
+    stripe: null,
+  });
+
+  componentDidMount() {
+    if (!this.props.apiKey) {
+      this.props.onLoadPayment();
+    }
   }
 
+  async onSubmit(stripeToken) {
+    const requestURL = `${API_HOSTNAME}payment`;
+    if (stripeToken) {
+      console.log('Received Stripe token:', stripeToken);
+      try {
+        const response = await request(requestURL, { method: 'POST', body: { stripeToken }})
+        this.props.onLoadUser();
+        this.redirectUser();
+      }
+      catch(err) {
+        console.error(err)
+      }
+    }
+  }
+
+  redirectUser = () => {
+    this.props.history.push('/');
+  };
+
   render() {
+    const { apiKey, error, stripeInstance, userData, subbed } = this.props;
     return (
       <div>
         <Helmet>
           <title>Payment Page</title>
           <meta
             name="description"
-            content="Feature page of React.js Boilerplate application"
+            content="Buy a new subscription"
           />
         </Helmet>
-        <H1>
-          <FormattedMessage {...messages.header} />
-        </H1>
-        
+        <div>
+        {
+          error && (
+            <strong>
+              { error }
+            </strong>
+          )
+        }
+        { 
+          !subbed && stripeInstance && (
+            <div>
+              <StripeProvider stripe={stripeInstance}>
+                <SubscribeCheckout onSubmit={this.onSubmit} userData={userData}/>
+              </StripeProvider>
+            </div>
+          )
+        }
+        </div>
       </div>
     );
   }
 }
+
+export function mapDispatchToProps(dispatch) {
+  return {
+    onLoadUser: evt => dispatch(loadUserStatus()),
+    onLoadPayment: evt => dispatch(loadPaymentInfo())
+  };
+}
+
+PaymentPage.propTypes = {
+  error: PropTypes.string,
+  apiKey: PropTypes.string,
+  userData: PropTypes.object,
+  stripeInstance: PropTypes.object,
+  onLoadPayment: PropTypes.func
+};
+
+const mapStateToProps = createStructuredSelector({
+  apiKey: makeSelectKey(),
+  error: makeSelectError(),
+  stripeInstance: makeSelectStripe(),
+  userData: makeSelectUserData()
+});
+
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps
+);
+
+const withReducer = injectReducer({ key: 'payment', reducer });
+const withSaga = injectSaga({ key: 'payment', saga });
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect
+)(PaymentPage)

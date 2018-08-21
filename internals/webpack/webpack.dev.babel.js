@@ -90,7 +90,7 @@ function dependencyHandlers() {
 
   const dllPath = path.resolve(
     process.cwd(),
-    dllPlugin.path || 'node_modules/react-boilerplate-dlls',
+    dllPlugin.path || 'node_modules/bossfooty-dlls',
   );
 
   /**
@@ -98,7 +98,7 @@ function dependencyHandlers() {
    * Reminder: You need to exclude any server side dependencies by listing them in dllConfig.exclude
    */
   if (!dllPlugin.dlls) {
-    const manifestPath = path.resolve(dllPath, 'reactBoilerplateDeps.json');
+    const manifestPath = path.resolve(dllPath, 'bossfootyDeps.json');
 
     if (!fs.existsSync(manifestPath)) {
       logger.error(

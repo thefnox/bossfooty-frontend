@@ -36,7 +36,7 @@ const BossfootyConfig = {
       include: ['core-js', 'eventsource-polyfill', 'babel-polyfill', 'lodash'],
 
       // The path where the DLL manifest and bundle will get built
-      path: resolve('../node_modules/react-boilerplate-dlls'),
+      path: resolve('../node_modules/bossfooty-dlls'),
     },
 
     entry(pkg) {
@@ -48,7 +48,7 @@ const BossfootyConfig = {
       const includeDependencies = uniq(dependencyNames.concat(include));
 
       return {
-        reactBoilerplateDeps: pullAll(includeDependencies, exclude),
+        bossfootyDeps: pullAll(includeDependencies, exclude),
       };
     },
   },
