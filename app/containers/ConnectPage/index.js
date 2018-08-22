@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { FormattedMessage } from 'react-intl';
 import { API_HOSTNAME } from 'utils/constants'
 import messages from './messages';
 import auth from 'utils/auth';
@@ -39,7 +39,7 @@ class ConnectPage extends React.Component {
   render() {
     return (
       <div>
-        <h1> { ...messages.header }</h1>
+        <h1><FormattedMessage { ...messages.header } /></h1>
       </div>
     );
   }

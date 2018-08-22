@@ -6,8 +6,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import Select from './Select';
+import { 
+  NativeSelect,
+  FormControl,
+  InputLabel
+} from '@material-ui/core';
 import ToggleOption from '../ToggleOption';
 
 function Toggle(props) {
@@ -21,15 +24,25 @@ function Toggle(props) {
   }
 
   return (
-    <Select value={props.value} onChange={props.onToggle}>
-      {content}
-    </Select>
+    <FormControl >
+      { props.label && <InputLabel htmlFor={props.name}>{ props.label }</InputLabel> }
+      <NativeSelect 
+        value={props.value}
+        onChange={props.onToggle}
+        inputProps={{
+          name: props.name,
+          id: props.id,
+        }}>
+        {content}
+      </NativeSelect>
+    </FormControl>
   );
 }
 
 Toggle.propTypes = {
   onToggle: PropTypes.func,
   values: PropTypes.array,
+  label: PropTypes.string,
   value: PropTypes.string,
   messages: PropTypes.object,
 };

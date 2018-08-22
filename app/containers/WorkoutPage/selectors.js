@@ -21,8 +21,29 @@ const makeSelectTestResultError = () =>
 const makeSelectTestResultData = () =>
   createSelector(selectWorkoutPageDomain, substate => substate.get('testResult'));
 
-
 const makeSelectWorkoutPage = () =>
   createSelector(selectWorkoutPageDomain, substate => substate.toJS());
 
-export { selectWorkoutPageDomain, makeSelectTestResultError, makeSelectTestResultData, makeSelectWorkoutPage};
+const makeSelectWorkoutError = () =>
+  createSelector(selectWorkoutPageDomain, substate => substate.get('error'));
+
+const makeSelectDay = () =>
+  createSelector(selectWorkoutPageDomain, substate => substate.get('day'));
+
+const makeSelectWorkoutData = () =>
+  createSelector(selectWorkoutPageDomain, substate => substate.get('workout'));
+
+const makeSelectRepMaxesData = () =>
+  createSelector(selectWorkoutPageDomain, substate => substate.get('repMaxes'));
+
+
+export { 
+  selectWorkoutPageDomain, 
+  makeSelectTestResultError,
+  makeSelectTestResultData,
+  makeSelectDay,
+  makeSelectWorkoutPage,
+  makeSelectWorkoutData,
+  makeSelectWorkoutError,
+  makeSelectRepMaxesData
+};

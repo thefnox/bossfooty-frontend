@@ -58,18 +58,20 @@ class AuthPage extends React.PureComponent {
 
   handleSubmit = async (bodyMap) => {
     const { authType } = this.props.match.params
-    const body = (authType === 'forgot-password' ? body.set('url', `${window.location.origin}/auth/reset-password`) : bodyMap).toObject()
+    const body = (authType === 'forgot-password' ? bodyMap.set('url', `${window.location.origin}/auth/reset-password`) : bodyMap).toObject()
     const requestURL = this.getRequestURL();
 
     try {
       const response = await request(requestURL, { method: 'POST', body })
-      if (!response.user) {
-        console.log(response);
-        throw 'An error has occurred';
+      if (authType !== 'forgot-password') {
+        if (!response.user) {
+          console.log(response);
+          throw 'An error has occurred';
+        }
+        auth.setToken(response.jwt, body.rememberMe);
+        auth.setUserInfo(response.user, body.rememberMe);
+        this.props.onLoadUser();
       }
-      auth.setToken(response.jwt, body.rememberMe);
-      auth.setUserInfo(response.user, body.rememberMe);
-      this.props.onLoadUser();
       this.redirectUser();
     }
     catch(err) {

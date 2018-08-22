@@ -22,6 +22,9 @@ export class LocaleToggle extends React.PureComponent {
     return (
       <Wrapper>
         <Toggle
+          label="Language"
+          id="localetoggle"
+          name="localetoggle"
           value={this.props.locale}
           values={appLocales}
           messages={messages}

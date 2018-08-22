@@ -8,7 +8,11 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   licenseMessage: {
     id: 'bossfooty.components.Footer.license.message',
-    defaultMessage: 'Copyright 2018 Bossfooty©',
+    defaultMessage: '2018 Bossfooty©',
+  },
+  copyright: {
+    id: 'bossfooty.components.Footer.copyright',
+    defaultMessage: 'Copyright',
   },
   authorMessage: {
     id: 'bossfooty.components.Footer.author.message',

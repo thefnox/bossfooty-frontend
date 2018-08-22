@@ -19,6 +19,7 @@ import injectSaga from 'utils/injectSaga';
 import SubscribeCheckout from 'components/SubscribeCheckout'
 import { FormattedMessage } from 'react-intl';
 import { API_HOSTNAME } from 'utils/constants'
+import LoadingIndicator from 'components/LoadingIndicator';
 import reducer from './reducer';
 import request from 'utils/request';
 import saga from './saga';
@@ -28,6 +29,7 @@ class PaymentPage extends React.PureComponent {
 
   state = fromJS({
     stripe: null,
+    loading: false
   });
 
   componentDidMount() {
@@ -36,10 +38,10 @@ class PaymentPage extends React.PureComponent {
     }
   }
 
-  async onSubmit(stripeToken) {
+  onSubmit = async (stripeToken) => {
     const requestURL = `${API_HOSTNAME}payment`;
+    this.setState({loading: true});
     if (stripeToken) {
-      console.log('Received Stripe token:', stripeToken);
       try {
         const response = await request(requestURL, { method: 'POST', body: { stripeToken }})
         this.props.onLoadUser();
@@ -52,10 +54,11 @@ class PaymentPage extends React.PureComponent {
   }
 
   redirectUser = () => {
-    this.props.history.push('/');
+    this.props.history.push('/quiz');
   };
 
   render() {
+    const { loading } = this.state;
     const { apiKey, error, stripeInstance, userData, subbed } = this.props;
     return (
       <div>
@@ -75,12 +78,17 @@ class PaymentPage extends React.PureComponent {
           )
         }
         { 
-          !subbed && stripeInstance && (
+          !subbed && stripeInstance && !loading && (
             <div>
               <StripeProvider stripe={stripeInstance}>
                 <SubscribeCheckout onSubmit={this.onSubmit} userData={userData}/>
               </StripeProvider>
             </div>
+          )
+        }
+        {
+          loading && (
+            <LoadingIndicator />
           )
         }
         </div>

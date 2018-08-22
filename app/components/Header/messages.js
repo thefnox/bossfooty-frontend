@@ -14,6 +14,14 @@ export default defineMessages({
     id: 'bossfooty.components.Header.features',
     defaultMessage: 'Features',
   },
+  pricing: {
+    id: 'bossfooty.components.Header.pricing',
+    defaultMessage: 'Pricing',
+  },
+  about: {
+    id: 'bossfooty.components.Header.about',
+    defaultMessage: 'About',
+  },
   payment: {
     id: 'bossfooty.components.Header.payment',
     defaultMessage: 'Buy Subscription',

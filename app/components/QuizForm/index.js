@@ -37,6 +37,18 @@ const validate = values => {
     errors.endurance = 'Endurance is required'
   }
 
+  if (!values.get('restDay1')) {
+    errors.endurance = 'First rest day is required'
+  }
+
+  if (!values.get('restDay2')) {
+    errors.endurance = 'Second rest day is required'
+  }
+
+  if (values.get('restDay1') === values.get('restDay2')) {
+    errors.restDay1 = 'You must pick two different days'
+  }
+
   if (values.get('age') < 10 || values.get('age') > 100) {
     errors.age = `Age must be between ${10} and ${100}`;
   }
@@ -82,6 +94,26 @@ const QuizForm = props => {
         <Field  type="select" name="endurance" component={Select} placeholder="Pick your endurance level">
           {
             quizData.question4.answers.map((answer, index) => (
+              <MenuItem key={`answer-${index}`} value={answer}>{answer}</MenuItem>
+            ))
+          }
+        </Field>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel >Which day would you like your first rest day to be?</InputLabel>
+        <Field type="select" name="restDay1" component={Select} placeholder="First rest day">
+          {
+            quizData.weekdays.map((answer, index) => (
+              <MenuItem key={`answer-${index}`} value={answer}>{answer}</MenuItem>
+            ))
+          }
+        </Field>
+      </FormControl>
+      <FormControl fullWidth>
+        <InputLabel >Which day would you like your second rest day to be?</InputLabel>
+        <Field type="select" name="restDay2" component={Select} placeholder="Second rest day">
+          {
+            quizData.weekdays.map((answer, index) => (
               <MenuItem key={`answer-${index}`} value={answer}>{answer}</MenuItem>
             ))
           }

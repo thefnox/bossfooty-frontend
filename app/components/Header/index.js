@@ -5,6 +5,10 @@ import {
   makeSelectIsSubbed,
   makeSelectIsSetup 
 } from 'containers/App/selectors';
+import {
+  AppBar,
+  Toolbar,
+} from '@material-ui/core';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import A from './A';
@@ -21,50 +25,54 @@ class Header extends React.PureComponent {
     const { authed, subbed, configured } = this.props;
     if (authed) {
       return (
-        <NavBar>
-          <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
-          </HeaderLink>
-          <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
-          </HeaderLink>
-          {
-            subbed ? (
-              configured ? (
-                <HeaderLink to="/workout">
-                  <FormattedMessage {...messages.workout} />
-                </HeaderLink>
-              ) 
+        <AppBar position="static" color="default">
+          <Toolbar>
+            <HeaderLink to="/">
+              <FormattedMessage {...messages.home} />
+            </HeaderLink>
+            {
+              subbed ? (
+                configured ? (
+                  <HeaderLink to="/workout">
+                    <FormattedMessage {...messages.workout} />
+                  </HeaderLink>
+                ) 
+                : (
+                  <HeaderLink to="/quiz">
+                    <FormattedMessage {...messages.setup} />
+                  </HeaderLink>
+                )
+              )
               : (
-                <HeaderLink to="/quiz">
-                  <FormattedMessage {...messages.setup} />
+                <HeaderLink to="/payment">
+                  <FormattedMessage {...messages.payment} />
                 </HeaderLink>
               )
-            )
-            : (
-              <HeaderLink to="/payment">
-                <FormattedMessage {...messages.payment} />
-              </HeaderLink>
-            )
-          }
-          <HeaderLink to="/logout">
-            <FormattedMessage {...messages.logout} />
-          </HeaderLink>
-        </NavBar>
+            }
+            <HeaderLink to="/logout">
+              <FormattedMessage {...messages.logout} />
+            </HeaderLink>
+          </Toolbar>
+        </AppBar>
       )
     }
     return (
-      <NavBar>
-        <HeaderLink to="/">
-          <FormattedMessage {...messages.home} />
-        </HeaderLink>
-        <HeaderLink to="/features">
-          <FormattedMessage {...messages.features} />
-        </HeaderLink>
-        <HeaderLink to="/auth/login">
-          <FormattedMessage {...messages.login} />
-        </HeaderLink>
-      </NavBar>
+      <AppBar position="static" color="default">
+        <Toolbar>
+          <HeaderLink to="/">
+            <FormattedMessage {...messages.home} />
+          </HeaderLink>
+          <HeaderLink to="/pricing">
+            <FormattedMessage {...messages.pricing} />
+          </HeaderLink>
+          <HeaderLink to="/about">
+            <FormattedMessage {...messages.about} />
+          </HeaderLink>
+          <HeaderLink to="/auth/login">
+            <FormattedMessage {...messages.login} />
+          </HeaderLink>
+        </Toolbar>
+      </AppBar>
     )
   }
 
