@@ -36,6 +36,9 @@ const makeSelectWorkoutData = () =>
 const makeSelectRepMaxesData = () =>
   createSelector(selectWorkoutPageDomain, substate => substate.get('repMaxes'));
 
+const makeSelectSuccessFetch = () =>
+  createSelector(selectWorkoutPageDomain, substate => substate.get('success'));
+
 
 export { 
   selectWorkoutPageDomain, 
@@ -45,5 +48,6 @@ export {
   makeSelectWorkoutPage,
   makeSelectWorkoutData,
   makeSelectWorkoutError,
-  makeSelectRepMaxesData
+  makeSelectRepMaxesData,
+  makeSelectSuccessFetch
 };

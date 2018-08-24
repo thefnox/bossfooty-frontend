@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { connect } from 'react-redux';
@@ -34,7 +35,8 @@ import {
   makeSelectDay,
   makeSelectRepMaxesData,
   makeSelectWorkoutData,
-  makeSelectWorkoutError
+  makeSelectWorkoutError,
+  makeSelectSuccessFetch
 } from './selectors';
 import {
   loadWorkoutData,
@@ -82,6 +84,9 @@ const styles = theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  textField: {
+    paddingBottom: 25,
+  },
   exerciseTable: {
     width: '100%'
   },
@@ -90,22 +95,35 @@ const styles = theme => ({
 /* eslint-disable react/prefer-stateless-function */
 export class WorkoutPage extends React.PureComponent {
 
-  calcDay = (currentDay, matchDay) => {
-    let day = matchDay || currentDay || -1;
+  calcDay = (matchDay, currentDay) => {
+    if (matchDay !== undefined && matchDay !== null) {
+      return parseInt(matchDay);
+    }
+    else if (currentDay !== undefined && currentDay !== null) {
+      return parseInt(currentDay)
+    }
     return -1;
   }
 
   async componentDidMount() {
-    const { userData, match: { params: { day: matchDay } }, fetchWorkout, fetchTestResult } = this.props;
+    const { userData, match: { params: { day: matchDay } }, fetchWorkout, fetchTestResult, fetched } = this.props;
     const { currentDay } = userData;
-    const day = matchDay || currentDay || -1;
-    if (day) {
-      if (day > 0) {
+    const day = this.calcDay(matchDay, currentDay);
+    if (!fetched) {
+      if (day >= 0) {
         fetchWorkout(day);
       }
-      else {
+      else if (currentDay === -1) {
         fetchTestResult();
       }
+    }
+  }
+
+  async componentDidUpdate(prevProps) {
+    const { userData, match: { params: { day: matchDay } }, fetchWorkout, fetchTestResult, fetched } = this.props;
+    const { currentDay } = userData;
+    if (currentDay === -1 && prevProps.match.params.day !== matchDay) {
+      fetchWorkout(day);
     }
   }
 
@@ -124,21 +142,24 @@ export class WorkoutPage extends React.PureComponent {
   };
 
   renderWorkoutHeader(){
-    const { userData, match: { params: { day: matchDay } } } = this.props;
-    const { restDay1, restDay2, currentDay } = userData;
-    const day = parseInt(matchDay || currentDay);
+    const { userData: { currentDay, restDay1, restDay2 }, day } = this.props;
     const weekday = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date().getDay()];
-    if (day === 0){
+    if (currentDay === 0){
       return (
         <FormattedMessage {...messages.dayZeroHeader} />
       );
     }
-    else if (day < 0) {
+    else if (day > currentDay) {
+      return (
+        <FormattedMessage {...messages.skipAhead} />
+      );
+    }
+    else if (day <= 0) {
       return (
         <FormattedMessage {...messages.backInTime} />
       );
     }
-    else if(restDay1 === weekday || restDay2 === weekday) {
+    else if(day === currentDay && (restDay1 === weekday || restDay2 === weekday)) {
       return (
         <FormattedMessage {...messages.restDayHeader} />
       );
@@ -153,8 +174,8 @@ export class WorkoutPage extends React.PureComponent {
   }
 
   render() {
-    const { subbed, classes, testResult, userData, exercises, repMaxes } = this.props;
-    const { currentDay } = userData;
+    const { classes, testResult, userData, exercises, repMaxes, day, fetchWorkout } = this.props;
+    const { currentDay, startDate } = userData;
     return (
       <div>
         <Helmet>
@@ -179,11 +200,18 @@ export class WorkoutPage extends React.PureComponent {
                   <Typography variant="display3">{ this.renderWorkoutHeader() }</Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12}>
-                  {
-                    !isEmpty(exercises) && currentDay > 0 && (
-                      <WorkoutList classes={classes} exercises={ exercises } repMaxes={ repMaxes } />
-                    )
-                  }
+                  <WorkoutList 
+                    classes={classes}
+                    exercises={ exercises }
+                    repMaxes={ repMaxes }
+                    day={day}
+                    onChange={(event) => {
+                      const beginDate = moment(startDate);
+                      const newDate = moment(event.target.value);
+                      const diff = Math.ceil(newDate.diff(beginDate, 'days', true)) + 1;
+                      fetchWorkout(diff)
+                    }}
+                    startDate={startDate} />
                 </Grid>
               </div>
             </Grid>
@@ -204,6 +232,8 @@ const mapStateToProps = createStructuredSelector({
   workoutError: makeSelectWorkoutError(),
   exercises: makeSelectWorkoutData(),
   repMaxes: makeSelectRepMaxesData(),
+  day : makeSelectDay(),
+  fetched: makeSelectSuccessFetch()
 });
 
 

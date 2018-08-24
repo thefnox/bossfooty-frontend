@@ -9,6 +9,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'app.components.WorkoutList.header',
-    defaultMessage: `Today's exercises:`,
+    defaultMessage: `This is the plan for the day:`,
   },
 });

@@ -19,6 +19,10 @@ export default defineMessages({
     id: 'app.containers.WorkoutPage.backInTime',
     defaultMessage: `You can't go back in time, before your program began!`,
   },
+  skipAhead: {
+    id: 'app.containers.WorkoutPage.skipAhead',
+    defaultMessage: `You cannot skip ahead further than your current workout day!`,
+  },
   restDayHeader: {
     id: 'app.containers.WorkoutPage.restDayHeader',
     defaultMessage: `Today's your rest day, time to take a break and recover! Here's yesterday's training:`,

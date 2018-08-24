@@ -19,19 +19,23 @@ export const initialState = fromJS({
   workout: [],
   repMaxes: [],
   error: '',
+  success: false,
   day: -1
 });
 
 function workoutPageReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_TEST_RESULT_DATA_SUCCESS:
-      return state.set('testResult', action.testResult);
+      return state
+        .set('testResult', action.testResult)
+        .set('success', true);
     case LOAD_TEST_RESULT_DATA_ERROR:
       return state.set('error', action.error);
     case LOAD_WORKOUT_DATA_SUCCESS:
       return state
         .set('workout', action.workout)
-        .set('repMaxes', action.repMaxes);
+        .set('repMaxes', action.repMaxes)
+        .set('success', true);
     case LOAD_WORKOUT_DATA_ERROR:
       return state.set('error', action.error);
     case LOAD_WORKOUT_DATA:
